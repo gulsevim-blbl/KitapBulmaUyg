@@ -1,8 +1,8 @@
-let kitap1 ={isim : "Her Şeyi Düşünme", yazar: "Anne Bogel" ,fiyat : 25 }
-let kitap2 = {isim: "Hiçbir Karşılaşma Tesadüf Değildir", yazar :"Hakan Mengüç", fiyat:35}
-let kitap3 = {isim: "İnsan Neyle Yaşar", yazaü: "Tolstoy", fiyat:34}
-let kitap4 = {isim: "Zafer Sızlanarak Kazanılmaz" , yazar:"Haluk Tatar", fiyat:45}
-let kitap5 = {isim: "Şeker Portakalı" , yazar:"jose Mauro de Vasconcelos", fiyat:22}
+let kitap1 ={isim : "Her Şeyi Düşünme", yazar: "Anne Bogel" ,fiyat : 25, raf: "1.5.RAF" }
+let kitap2 = {isim: "Hiçbir Karşılaşma Tesadüf Değildir", yazar :"Hakan Mengüç", fiyat:56, raf:"2.3.RAF" }
+let kitap3 = {isim: "İnsan Neyle Yaşar", yazaü: "Tolstoy", fiyat:34, raf:"3.4.RAF"}
+let kitap4 = {isim: "Zafer Sızlanarak Kazanılmaz" , yazar:"Haluk Tatar", fiyat:45, raf :"4.1.RAF"}
+let kitap5 = {isim: "Şeker Portakalı" , yazar:"jose Mauro de Vasconcelos", fiyat:22, raf: "5.3.RAf"}
 
 let kitaplar = [kitap1,kitap2,kitap3,kitap4,kitap5];
 
@@ -49,12 +49,50 @@ let raf55={kod: "5.5.RAF", goster:false}
     let satir ="";
     for(let i=0; i<raflar.length;i++){
         for(let j=0 ;j<5; j++){
-            satir += "|" + raflar[i][j].kod + "|" ;     
+            satir += "|" + (raflar[i][j].goster ? raflar[i][j].kod :"------") + "" ;     
         }
         console.log(satir);
+        console.log("--------------------");
         satir="";
     
      }
  }
 
+ function KodBul(kitapİsmi){
+    let rafKod =null;
+    kitaplar.forEach(function(kitap){
+            if(kitap.isim.toUpperCase().includes(kitapİsmi.toUpperCase(),0)){
+                
+              rafKod = kitap.raf;
+              
+            }
+
+    });
+    return rafKod;
+ }
+
+
+ function raftaGoster(rafKodu){
+    for( let i=0 ; i<raflar.length;i++){
+        for(let j= 0 ; j<5; j++){
+            if(raflar[i][j].kod==rafKodu){
+                raflar[i][j].goster= true;
+                break;
+            }
+        }
+    }
+
+ }
+
  rafOlustur();
+ let kitapIsmi = prompt("Lütfen Bir Kitap İsmi Griniz: ");
+ let rafKod = KodBul(kitapIsmi);
+console.log(rafKod);
+
+
+ if(rafKod!=null){
+    raftaGoster(rafKod);
+    rafOlustur();
+ }else{
+    alert("Girdiğiniz Kitap Kütüphanemizde Bulunmamaktadır.")
+ }
